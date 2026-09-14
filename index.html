@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verificação de Certificado — Incessantemente × Seqor</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#343399; --azul-medio:#5A59B5;
+    --laranja:#FF6600;
+    --fundo:#F5F5F5; --branco:#FFFFFF;
+    --tinta:#33333D; --tinta-suave:#76767F;
+    --linha:rgba(52,51,153,.14); --linha-forte:rgba(52,51,153,.3);
+    --verde:#12805A; --vermelho:#B23A32;
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Inter",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--tinta);background:var(--fundo);
+    min-height:100vh;padding:34px 20px 64px;}
+  .wrap{max-width:660px;margin:0 auto;}
+
+  header{text-align:center;padding-bottom:26px;border-bottom:1px solid var(--linha-forte);}
+  .marcas{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;}
+  .marcas img.inc{width:190px;}
+  .marcas img.seq{width:118px;}
+  .marcas .barra-v{width:1px;height:34px;background:var(--linha-forte);}
+  header h1{font-family:var(--serif);font-size:32px;font-weight:600;color:var(--azul);
+    letter-spacing:.05em;margin-top:26px;}
+  header p{font-size:14.5px;color:var(--tinta-suave);margin-top:10px;line-height:1.65;font-weight:300;}
+
+  .busca{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
+  .busca input{flex:1;min-width:200px;background:var(--branco);color:var(--tinta);
+    border:1px solid var(--linha-forte);border-radius:6px;padding:13px 15px;
+    font-family:var(--sans);font-size:15px;letter-spacing:.05em;}
+  .busca input::placeholder{color:#A5A5AE;letter-spacing:normal;}
+  .busca input:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(52,51,153,.1);}
+  .busca button{background:var(--laranja);color:#fff;border:0;border-radius:6px;
+    padding:13px 26px;font-weight:600;font-size:15px;cursor:pointer;font-family:var(--sans);}
+  .busca button:hover{background:#E65C00;}
+
+  .cartao{margin-top:24px;background:var(--branco);border:1px solid var(--linha);
+    border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(52,51,153,.05);}
+  .status{padding:15px 22px;display:flex;align-items:center;gap:11px;font-weight:600;font-size:15px;}
+  .status.ok{background:#EAF6F1;color:var(--verde);border-bottom:1px solid rgba(18,128,90,.22);}
+  .status.erro{background:#FBEDEC;color:var(--vermelho);border-bottom:1px solid rgba(178,58,50,.22);}
+  .status .icone{font-size:18px;line-height:1;}
+
+  .interno{padding:24px 22px;}
+  .nome{font-family:var(--serif);font-size:31px;color:var(--azul);font-weight:600;line-height:1.2;}
+  .curso{font-family:var(--serif);font-size:18px;color:var(--tinta);margin-top:11px;line-height:1.35;}
+  .linha-trilha{font-size:12px;color:var(--tinta-suave);margin-top:8px;letter-spacing:.05em;}
+
+  dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px 22px;
+    margin-top:24px;padding-top:22px;border-top:1px solid var(--linha);}
+  dt{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-suave);}
+  dd{font-family:var(--serif);font-size:19px;color:var(--azul);margin-top:5px;font-weight:600;}
+  dd.pequeno{font-family:var(--sans);font-size:13px;color:var(--tinta);font-weight:400;letter-spacing:.04em;}
+
+  h2{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--azul);
+    margin-top:26px;padding-top:22px;border-top:1px solid var(--linha);font-weight:600;}
+  ul.disc{list-style:none;margin-top:12px;}
+  ul.disc li{display:flex;justify-content:space-between;gap:16px;padding:10px 0;
+    border-bottom:1px solid var(--linha);font-size:14px;}
+  ul.disc li:last-child{border-bottom:0;}
+  ul.disc .h{font-family:var(--serif);font-size:16px;color:var(--laranja);font-weight:600;white-space:nowrap;}
+
+  .assina{margin-top:22px;padding-top:20px;border-top:1px solid var(--linha);
+    font-size:13px;line-height:1.8;color:var(--tinta-suave);}
+  .assina b{color:var(--azul);font-weight:600;}
+
+  .vazio{padding:24px 22px;font-size:14px;line-height:1.8;color:var(--tinta-suave);}
+  .vazio b{color:var(--tinta);}
+
+  footer{margin-top:32px;text-align:center;font-size:11.5px;line-height:1.9;color:#93939C;}
+  footer b{color:var(--tinta-suave);font-weight:500;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="marcas">
+      <img class="inc" src="logo-incessantemente.png" alt="Incessantemente">
+      <div class="barra-v"></div>
+      <img class="seq" src="logo-seqor.png" alt="Seqor">
+    </div>
+    <h1>Verificação de Certificado</h1>
+    <p>Informe o número de registro impresso no certificado para confirmar sua autenticidade.</p>
+    <form class="busca" onsubmit="buscar(event)">
+      <input id="campo" placeholder="INC-T1-2026-000-XXXX" autocomplete="off" spellcheck="false">
+      <button type="submit">Verificar</button>
+    </form>
+  </header>
+
+  <div id="resultado"></div>
+
+  <footer id="rodape"></footer>
+</div>
+
+<script src="dados-publicos.js"></script>
+<script>
+const D = window.DADOS_PUBLICOS || null;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $ = id => document.getElementById(id);
+
+if (D) {
+  $('rodape').innerHTML =
+    '<b>' + esc(D.certificadora.razaoSocial) + '</b> · CNPJ ' + esc(D.certificadora.cnpj) + '<br>' +
+    esc(D.certificadora.contato) + '<br>' +
+    (D.certificadora.cnae ? esc(D.certificadora.cnae) + '<br>' : '') +
+    'Esta página confirma a emissão do certificado. Dados pessoais além do nome não são divulgados.';
+}
+
+function normaliza(s){ return String(s || '').trim().toUpperCase().replace(/\s+/g,''); }
+
+function achar(codigo){
+  if (!D) return null;
+  const alvo = normaliza(codigo);
+  return D.certificados.find(c => normaliza(c.codigo) === alvo) || null;
+}
+
+function render(codigo){
+  const box = $('resultado');
+  if (!codigo){ box.innerHTML = ''; return; }
+
+  if (!D){
+    box.innerHTML = '<div class="cartao"><div class="status erro"><span class="icone">!</span>' +
+      'Base de certificados indisponível</div><div class="vazio">O arquivo <b>dados-publicos.js</b> ' +
+      'não foi carregado. Se você é o administrador, publique-o junto desta página.</div></div>';
+    return;
+  }
+
+  const c = achar(codigo);
+
+  if (!c){
+    box.innerHTML =
+      '<div class="cartao"><div class="status erro"><span class="icone">✕</span>Certificado não localizado</div>' +
+      '<div class="vazio">Nenhum certificado corresponde ao registro <b>' + esc(codigo) + '</b>.<br><br>' +
+      'Confira se o código foi digitado exatamente como aparece no documento. Persistindo a dúvida, ' +
+      'escreva para ' + esc(D.certificadora.contato) + '.</div></div>';
+    return;
+  }
+
+  const disciplinas = D.disciplinas.map(d =>
+    '<li><span>' + esc(d.nome) + '</span><span class="h">' + esc(d.horas) + '</span></li>').join('');
+
+  box.innerHTML =
+  '<div class="cartao">' +
+    '<div class="status ok"><span class="icone">✓</span>Certificado válido e emitido por ' + esc(D.certificadora.marca) + '</div>' +
+    '<div class="interno">' +
+      '<div class="nome">' + esc(c.nome) + '</div>' +
+      '<div class="curso">' + esc(D.curso.nome) + '</div>' +
+      '<div class="linha-trilha">' + esc(D.curso.trilha) + ' · em parceria com ' + esc(D.parceiro.marca) + '</div>' +
+      '<dl>' +
+        '<div><dt>Carga horária</dt><dd>' + esc(D.curso.cargaHoraria) + '</dd></div>' +
+        '<div><dt>Período</dt><dd class="pequeno">' + esc(D.curso.periodo) + '</dd></div>' +
+        '<div><dt>Modalidade</dt><dd class="pequeno">' + esc(D.curso.modalidade) + '</dd></div>' +
+        '<div><dt>Emissão</dt><dd class="pequeno">' + esc(D.curso.local) + ', ' + esc(D.curso.emissao) + '</dd></div>' +
+        '<div><dt>Registro nº</dt><dd class="pequeno">' + esc(c.codigo) + '</dd></div>' +
+      '</dl>' +
+      '<h2>Conteúdo programático</h2>' +
+      '<ul class="disc">' + disciplinas + '</ul>' +
+      '<div class="assina">Assinam este certificado:<br>' +
+        (D.assinaturas || []).map(function(a){
+          return '<b>' + esc(a.nome) + '</b> — ' + esc(a.resumo);
+        }).join('<br>') + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function buscar(e){
+  e.preventDefault();
+  const v = $('campo').value.trim();
+  const u = new URL(location.href);
+  if (v) u.searchParams.set('c', v); else u.searchParams.delete('c');
+  history.replaceState(null, '', u);
+  render(v);
+}
+
+const inicial = new URLSearchParams(location.search).get('c');
+if (inicial){ $('campo').value = inicial; render(inicial); }
+</script>
+</body>
+</html>
