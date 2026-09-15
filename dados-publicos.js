@@ -85,6 +85,10 @@ window.DADOS_PUBLICOS = {
     {
       "codigo": "INC-T1-2026-018-FR36",
       "nome": "Silvio Eduardo Junior"
+    },
+    {
+      "codigo": "INC-T1-2026-019-8LRB",
+      "nome": "Gisele Pereira dos Reis"
     }
   ]
 };
