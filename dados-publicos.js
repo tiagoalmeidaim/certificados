@@ -27,7 +27,7 @@ window.DADOS_PUBLICOS = {
       "resumo": "Facilitador e Responsável Técnico"
     },
     {
-      "nome": "Silvio [SOBRENOME]",
+      "nome": "Silvio Eduardo",
       "resumo": "Sponsor do Programa · CEO Seqor"
     }
   ],
@@ -77,6 +77,14 @@ window.DADOS_PUBLICOS = {
     {
       "codigo": "INC-T1-2026-016-UWM9",
       "nome": "Marcella Oliveira Santos"
+    },
+    {
+      "codigo": "INC-T1-2026-017-52HS",
+      "nome": "Pablo Felismindo Conceição Barbosa"
+    },
+    {
+      "codigo": "INC-T1-2026-018-FR36",
+      "nome": "Silvio Eduardo Junior"
     }
   ]
 };
