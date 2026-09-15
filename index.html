@@ -148,26 +148,36 @@ function render(codigo){
   const disciplinas = D.disciplinas.map(d =>
     '<li><span>' + esc(d.nome) + '</span><span class="h">' + esc(d.horas) + '</span></li>').join('');
 
+  const atestado = c.tipo === 'atestado';
+
   box.innerHTML =
   '<div class="cartao">' +
-    '<div class="status ok"><span class="icone">✓</span>Certificado válido e emitido por ' + esc(D.certificadora.marca) + '</div>' +
+    '<div class="status ok"><span class="icone">✓</span>' +
+      (atestado ? 'Atestado válido, emitido por ' + esc(c.emissor || 'Seqor')
+                : 'Certificado válido e emitido por ' + esc(D.certificadora.marca)) + '</div>' +
     '<div class="interno">' +
       '<div class="nome">' + esc(c.nome) + '</div>' +
       '<div class="curso">' + esc(D.curso.nome) + '</div>' +
-      '<div class="linha-trilha">' + esc(D.curso.trilha) + ' · em parceria com ' + esc(D.parceiro.marca) + '</div>' +
+      '<div class="linha-trilha">' + esc(D.curso.trilha) +
+        (atestado ? ' · ministrado por este profissional'
+                  : ' · em parceria com ' + esc(D.parceiro.marca)) + '</div>' +
       '<dl>' +
-        '<div><dt>Carga horária</dt><dd>' + esc(D.curso.cargaHoraria) + '</dd></div>' +
+        '<div><dt>' + (atestado ? 'Carga horária ministrada' : 'Carga horária') + '</dt><dd>' +
+          esc(D.curso.cargaHoraria) + '</dd></div>' +
         '<div><dt>Período</dt><dd class="pequeno">' + esc(D.curso.periodo) + '</dd></div>' +
         '<div><dt>Modalidade</dt><dd class="pequeno">' + esc(D.curso.modalidade) + '</dd></div>' +
         '<div><dt>Emissão</dt><dd class="pequeno">' + esc(D.curso.local) + ', ' + esc(D.curso.emissao) + '</dd></div>' +
         '<div><dt>Registro nº</dt><dd class="pequeno">' + esc(c.codigo) + '</dd></div>' +
       '</dl>' +
-      '<h2>Conteúdo programático</h2>' +
+      '<h2>' + (atestado ? 'Conteúdo ministrado' : 'Conteúdo programático') + '</h2>' +
       '<ul class="disc">' + disciplinas + '</ul>' +
-      '<div class="assina">Assinam este certificado:<br>' +
-        (D.assinaturas || []).map(function(a){
-          return '<b>' + esc(a.nome) + '</b> — ' + esc(a.resumo);
-        }).join('<br>') + '</div>' +
+      '<div class="assina">' +
+        (atestado
+          ? 'Atestado emitido por:<br><b>' + esc(c.assinadoPor || '') + '</b>'
+          : 'Responsáveis pelo programa:<br>' +
+            (D.assinaturas || []).map(function(a){
+              return '<b>' + esc(a.nome) + '</b> — ' + esc(a.resumo);
+            }).join('<br>')) + '</div>' +
     '</div>' +
   '</div>';
 }
